@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/action_hot"
-          android:title="HOT"
+          android:title="NEWS"
           android:icon="@drawable/ic_whatshot_black_24dp"
           app:showAsAction="always"
           />
     <item android:id="@+id/action_new"
-          android:title="NEW"
+          android:title="UPLOAD"
           android:icon="@drawable/ic_fiber_new_black_24dp"
           app:showAsAction="always"
         />

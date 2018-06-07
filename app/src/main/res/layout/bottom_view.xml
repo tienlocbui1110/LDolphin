@@ -9,6 +9,6 @@
     android:id="@+id/bottom_view"
     app:itemIconTint="@android:color/white"
     app:itemTextColor="@android:color/white"
-    app:menu="@menu/menu">
+    app:menu="@menu/bottom_menu">
 
 </android.support.design.widget.BottomNavigationView>
