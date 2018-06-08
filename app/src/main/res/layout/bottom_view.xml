@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.BottomNavigationView
+<com.aurelhubert.ahbottomnavigation.AHBottomNavigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:itemBackground="?attr/colorPrimary"
     android:layout_alignParentBottom="true"
-    android:id="@+id/bottom_view"
-    app:itemIconTint="@android:color/white"
-    app:itemTextColor="@android:color/white"
-    app:menu="@menu/bottom_menu">
+    >
 
-</android.support.design.widget.BottomNavigationView>
+</com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
