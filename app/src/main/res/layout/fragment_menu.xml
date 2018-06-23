@@ -1,14 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ViewPagerFragment.MenuFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewPagerFragment.MenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <uk.co.senab.photoview.PhotoView
+        android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:scaleType="centerCrop" />
 
-</FrameLayout>
+    <LinearLayout
+        style="@style/MenuFragment"
+        android:layout_above="@id/linear_setting"
+        android:layout_marginBottom="50dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/avatar"
+            app:riv_border_width="0dp"
+            app:riv_corner_radius="40dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center"
+            android:paddingEnd="20dp"
+            android:paddingStart="0dp"
+
+            android:text="@string/menu_fragment_profile"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/MenuFragment"
+        android:layout_centerInParent="true">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/avatar"
+            app:riv_border_width="0dp"
+            app:riv_corner_radius="40dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:text="@string/menu_fragment_setting"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/MenuFragment"
+        android:layout_below="@id/linear_setting"
+        android:layout_marginTop="50dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/avatar"
+            app:riv_border_width="0dp"
+            app:riv_corner_radius="40dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center"
+            android:paddingEnd="20dp"
+            android:paddingStart="0dp"
+            android:text="@string/menu_fragment_logout"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <!--Make touchable for setting view and clickable-->
+
+
+    <View
+        android:id="@+id/linear_profile"
+        style="@style/ClickableMenuFragment"
+        android:layout_above="@id/linear_setting"
+        android:layout_marginBottom="50dp" />
+
+    <View
+        android:id="@+id/linear_setting"
+        style="@style/ClickableMenuFragment"
+        android:layout_centerInParent="true" />
+
+    <View
+        android:id="@+id/linear_logout"
+        style="@style/ClickableMenuFragment"
+        android:layout_below="@id/linear_setting"
+        android:layout_marginTop="50dp" />
+
+</RelativeLayout>

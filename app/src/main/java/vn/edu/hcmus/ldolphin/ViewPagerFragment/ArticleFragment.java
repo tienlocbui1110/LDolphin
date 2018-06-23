@@ -1,21 +1,25 @@
 package vn.edu.hcmus.ldolphin.ViewPagerFragment;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+
+import com.bumptech.glide.Glide;
+import com.gabrielsamojlo.keyboarddismisser.KeyboardDismisser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.edu.hcmus.ldolphin.BottomNavigationViewHelper;
+import uk.co.senab.photoview.PhotoView;
 import vn.edu.hcmus.ldolphin.R;
 import vn.edu.hcmus.ldolphin.data.Article;
 import vn.edu.hcmus.ldolphin.data.ArticleAdapter;
@@ -25,6 +29,8 @@ public class ArticleFragment extends Fragment {
     private List<Article> mArticles;
     private RecyclerView recyclerView;
     private ArticleAdapter mAdapter;
+    PhotoView mBackground;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,25 +40,35 @@ public class ArticleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Do something
+        // Setting Layout
+        settingFragment(view);
+    }
+
+    public void settingFragment(@NonNull View view) {
+
         // Find Id
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_articles);
+        findLayoutId(view);
+
         // Prepare Data
-        // Will remove later
         mArticles = new ArrayList<>();
         Utils.prepareData(mArticles);
+        mAdapter = new ArticleAdapter(view.getContext(), mArticles);
 
-        // Set recycle Adapter
-        mAdapter = new ArticleAdapter(view.getContext(),mArticles);
+        // Load background image
+        Glide.with(view.getContext()).load(R.drawable.default_backgrround_1).into(mBackground);
+        mBackground.setZoomable(false);
 
+        // Setting RecyclerView
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setAdapter(mAdapter);
-
-
     }
 
+    public void findLayoutId(@NonNull View view) {
+        mBackground = view.findViewById(R.id.pv_background);
+        recyclerView = view.findViewById(R.id.recycler_articles);
+    }
 
 }

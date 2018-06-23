@@ -92,6 +92,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
                 popup.show();
             }
         });
+
+        // Adding some view when end of view
+
     }
 
     @Override
