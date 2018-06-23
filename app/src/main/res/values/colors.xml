@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorTransparent">#00000000</color>
     <color name="colorBackgroundActivity">#05000000</color>
+    <color name="colorMenuFragmentSetting">#7284E8</color>
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorGray">@android:color/darker_gray</color>
 </resources>

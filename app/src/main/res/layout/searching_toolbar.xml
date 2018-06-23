@@ -1,0 +1,63 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:fitsSystemWindows="true"
+    android:padding="0dp"
+    app:layout_scrollFlags="scroll|enterAlways"
+    app:titleTextColor="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/image_button_home"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_home_black_24dp"
+            android:tint="@android:color/white" />
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/text_input_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toEndOf="@id/image_button_home"
+            android:layout_toStartOf="@id/image_button_search"
+            android:background="@drawable/layout_bg_corners"
+            android:backgroundTint="@color/colorWhite"
+            android:hint="@string/edittext_searching"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:outlineProvider="none"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:scrollHorizontally="true"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/image_button_search"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_search_black_24dp"
+            android:tint="@android:color/white" />
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>
