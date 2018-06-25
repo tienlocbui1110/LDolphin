@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
     android:layout_alignParentTop="true"
     android:layout_marginTop="10dp"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <TextView
@@ -19,31 +18,33 @@
         android:layout_height="22dp"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@id/image_avatar"
-        tools:text="Nguyễn văn A"
+        android:textColor="@android:color/black"
         android:textSize="15sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        tools:text="Nguyễn văn A" />
 
     <ImageButton
+        android:id="@+id/image_button_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:backgroundTint="@color/colorTransparent"
-        android:paddingRight="0dp"
-        android:paddingTop="0dp"
         android:paddingBottom="0dp"
         android:paddingLeft="4dp"
-        android:id="@+id/image_button_menu"
-        android:src="@drawable/ic_more_vert_black_24dp"/>
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        android:src="@drawable/ic_more_vert_black_24dp" />
 
     <TextView
+        android:id="@+id/text_time"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
-        android:id="@+id/text_time"
         android:layout_below="@id/text_name"
         android:layout_marginLeft="6dp"
         android:layout_toRightOf="@id/image_avatar"
         android:text="11:04 Yesterday"
-        android:textSize="11sp"/>
+        android:textColor="@android:color/black"
+        android:textSize="11sp" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/image_avatar"
@@ -51,7 +52,7 @@
         android:layout_height="40dp"
         android:scaleType="fitCenter"
         app:riv_border_width="0dp"
-        app:riv_corner_radius="40dp"/>
+        app:riv_corner_radius="40dp" />
 
     <TextView
         android:id="@+id/text_description"
@@ -60,7 +61,8 @@
         android:layout_below="@id/image_avatar"
         android:layout_marginTop="5dp"
         android:text="Đẹp..."
-        tools:text="Đẹp..."/>
+        android:textColor="@android:color/black"
+        tools:text="Đẹp..." />
 
     <ImageView
         android:id="@+id/image_picture"
@@ -69,5 +71,5 @@
         android:layout_below="@id/text_description"
         android:layout_marginTop="5dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter" />
 </RelativeLayout>

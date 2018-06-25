@@ -7,4 +7,5 @@
     <string name="menu_fragment_setting">Cài đặt ứng dụng</string>
     <string name="menu_fragment_logout">Đăng xuất</string>
     <string name="edittext_searching">Tìm kiếm...</string>
+    <string name="simple_view_profile">Xem đơn giản</string>
 </resources>
