@@ -2,27 +2,39 @@ var controller = {};
 
 var models = require('../models');
 
-controller.getAll = function (callback) {
+controller.getAll = function(callback) {
     models.Image
         .findAll()
-        .then(function (images) {
+        .then(function(images) {
             callback(images);
         });
 }
 
-controller.getById = function (imageId, callback) {
+controller.getById = function(imageId, callback) {
     models.Image
         .findAll({
             where: {
                 ID: imageId
             },
         })
-        .then(function (image) {
+        .then(function(image) {
             callback(image);
         });
 }
 
-controller.upImage = function (info) {
+controller.getByUserId = function(userId, callback) {
+    models.Image
+        .findAll({
+            where: {
+                IDUser: userId
+            },
+        })
+        .then(function(images) {
+            callback(images);
+        });
+}
+
+controller.upImage = function(info) {
     models.ImageDetail
         .build({
             IDStatus: info.status,
