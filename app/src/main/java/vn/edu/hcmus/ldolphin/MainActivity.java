@@ -1,6 +1,5 @@
 package vn.edu.hcmus.ldolphin;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -9,9 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -70,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         // Bottom Navigation
-        addControl();
+        addViewpagerControl();
         BottomNavigationViewHelper.init(this, bottomNavigation);
 
     }
 
-    private void addControl() {
+    private void addViewpagerControl() {
         ViewPager pager = findViewById(R.id.view_pager);
         FragmentManager manager = getSupportFragmentManager();
         MyPagerAdapter adapter = new MyPagerAdapter(manager);
