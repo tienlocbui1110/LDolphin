@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void settingRecyclerView() {
         mArticles = new ArrayList<>();
         Utils.prepareData(mArticles);
-        mAdapter = new ProfileAdapter(getApplicationContext(), mArticles);
+        mAdapter = new ProfileAdapter(this, mArticles);
 
         // Setting RecyclerView
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

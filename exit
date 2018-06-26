@@ -1,0 +1,19 @@
+* [33m0044f1e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mloc[m[33m)[m update image user controller
+* [33m931f2ca[m update user routes
+[31m|[m *   [33mafb8c43[m[33m ([m[1;31morigin/loc[m[33m)[m Merge branch 'master' of https://github.com/tienlocbui1110/LDolphin into loc
+[31m|[m [32m|[m[31m\[m  
+[31m|[m [32m|[m[31m/[m  
+[31m|[m[31m/[m[32m|[m   
+* [32m|[m [33mbd1c359[m image api
+* [32m|[m [33m2144915[m add routes image
+* [32m|[m   [33md569788[m Merge branch 'master' of https://github.com/tienlocbui1110/LDolphin
+[34m|[m[35m\[m [32m\[m  
+* [35m|[m [32m|[m [33md772783[m server start
+[35m|[m [35m|[m * [33m1bda304[m temp
+[35m|[m [35m|[m[35m/[m  
+[35m|[m * [33ma39ffc4[m add full first layout
+[35m|[m[35m/[m  
+* [33md1773ee[m Bottom View use with ViewPager, Upload layout
+* [33mb30091c[m  Add home layout, fullscreen image, popup menu
+* [33m03c92f8[m init
+* [33mb6f8bc0[m Initial commit

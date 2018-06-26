@@ -39,6 +39,42 @@ public class Utils {
         articles.add(new Article("_2324", "Nguyễn Văn N",
                 "5:24am June 2",
                 "Okay."));
+    }
+
+    public static void prepareDataProfile(List<Article> articles) {
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "Yesterday",
+                "Hình này ở đâu nhỉ ?"));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:50am June 5",
+                "Hình này xấu..."));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:50am June 5",
+                "Hình này đẹp"));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:50am June 5",
+                "Hình này hơi đẹp"));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:50am June 4",
+                " Đẹp vl"));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:40am June 4",
+                "Hihihihi"));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:33am June 4",
+                "Huh.."));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:50am June 2",
+                "Spammer"));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:25am June 2",
+                "Des nên ngắn thôi"));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "9:14am June 2",
+                "Chủ yếu xem hình"));
+        articles.add(new Article("_2324", "Nguyễn Văn A",
+                "5:24am June 2",
+                "Okay."));
 
     }
 

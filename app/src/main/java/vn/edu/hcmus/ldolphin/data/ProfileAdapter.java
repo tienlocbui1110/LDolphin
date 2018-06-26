@@ -32,7 +32,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private List<Article> mArticleList;
     private LayoutInflater mLayoutInflater;
-    private Context mContext;
+    private Activity mContext;
 
     private ViewHolderProfile viewHolderProfile;
     private ViewHolderArticle viewHolderArticle;
@@ -41,7 +41,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public ProfileAdapter(Context context, List<Article> articleList) {
         this.mArticleList = articleList;
         mLayoutInflater = LayoutInflater.from(context);
-        mContext = context;
+        mContext = (Activity) context;
     }
 
     class ViewHolderProfile extends RecyclerView.ViewHolder {
@@ -95,7 +95,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (position == 0) {
             return VIEW_TYPE_PROFILE;
 
-        } else if (position != mArticleList.size()+1) {
+        } else if (position != mArticleList.size() + 1) {
             return VIEW_TYPE_ARTICLE;
         } else {
             return VIEW_TYPE_PROGRESS;
@@ -136,7 +136,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             case VIEW_TYPE_ARTICLE:
                 viewHolderArticle = (ViewHolderArticle) holder;
-                Article article = mArticleList.get(position-1);
+                Article article = mArticleList.get(position - 1);
                 viewHolderArticle.name.setText(article.getName());
                 viewHolderArticle.time.setText(article.getTime());
                 viewHolderArticle.description.setText(article.getDescription());
@@ -158,7 +158,16 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         popup.getMenuInflater().inflate(R.menu.article_menu, popup.getMenu());
                         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             public boolean onMenuItemClick(MenuItem item) {
-                                Toast.makeText(mContext, "You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                                if (item.getTitle().toString().compareTo("Xóa") == 0) {
+                                    mArticleList.remove(position - 1);
+                                    Toast.makeText(mContext, "removed", Toast.LENGTH_SHORT).show();
+                                } else if (item.getTitle().toString().compareTo("Ẩn") == 0) {
+                                    mArticleList.remove(position - 1);
+                                    Toast.makeText(mContext, "hided", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(mContext, "reported to admin", Toast.LENGTH_SHORT).show();
+                                }
+                                notifyDataSetChanged();
                                 return true;
                             }
                         });
@@ -169,9 +178,26 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case VIEW_TYPE_PROGRESS:
                 viewHolderProgressBar = (ViewHolderProgressBar) holder;
                 // Do with
-                List<Article> tmp = new ArrayList<>();
-                Utils.prepareData(tmp);
-                mArticleList.addAll(tmp);
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                            mContext.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    List<Article> tmp = new ArrayList<>();
+                                    Utils.prepareDataProfile(tmp);
+                                    mArticleList.addAll(tmp);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
                 break;
         }
     }
