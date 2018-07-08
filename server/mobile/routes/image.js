@@ -48,8 +48,10 @@ router.get('/user/:userId', function(req, res, next) {
     });
 })
 
-router.get('/addImage', function(req, res, next) {
+router.get('/:userId/addImage', function(req, res, next) {
+    var id = req.params.userId;
     var image = req.body.image;
+    image.userId = id;
     Image.insertOne(image);
 })
 
