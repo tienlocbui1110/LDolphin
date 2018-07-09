@@ -199,6 +199,7 @@ router.get('/:id/updateImage/liked', function(req, res, next) {
                 "countLike": 1
             }
         });
+        res.send("thêm dc r");
     } else {
         res.status(401);
     }

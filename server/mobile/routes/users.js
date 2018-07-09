@@ -62,10 +62,10 @@ router.get('/:id', function(req, res, next) {
 
 })
 
-router.get('/:id/imageStored/:page', function(req, res, next) {
+router.get('/:id/imageStored/', function(req, res, next) {
     var id = req.params.id;
     var perPage = 10,
-        page = Math.max(0, req.params.page);
+        page = Math.max(0, req.query.page);
     if (req.isAuthenticated() == true) {
         userStore.find({
                 userId: id
@@ -89,10 +89,10 @@ router.post('/:id/imageStored/add', function(req, res, next) {
     res.send('Add a new stored image')
 })
 
-router.get('/:id/imageLiked/:page', function(req, res, next) {
+router.get('/:id/imageLiked', function(req, res, next) {
     var id = req.params.id;
     var perPage = 10,
-        page = Math.max(0, req.params.page);
+        page = Math.max(0, req.query.page);
     if (req.isAuthenticated() == true) {
         likedStore.find({
                 userId: id
