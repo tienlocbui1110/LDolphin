@@ -75,7 +75,7 @@ connection.once('open', function() {
 
     var gfs = Grid(connection.db);
     // Reading a file from MongoDB
-    router.get('/:userId/read/:title', function(req, res) {
+    router.get('/read/:title', function(req, res) {
         // Check file exist on MongoDB
         var title = req.params.title;
         if (req.isAuthenticated() == true) {
@@ -98,7 +98,7 @@ connection.once('open', function() {
     });
 
     // Delete a file from MongoDB
-    router.delete('/:userId/delete/:imageId', function(req, res) {
+    router.delete('/delete/:imageId', function(req, res) {
         var imageId = req.params.imageId;
         if (req.isAuthenticated() == true) {
             gfs.exist({
@@ -122,7 +122,7 @@ connection.once('open', function() {
     });
 
     // Get file information(File Meta Data) from MongoDB
-    router.get('/:userId/meta/:imageId/:title', function(req, res) {
+    router.get('/meta/:imageId/:title', function(req, res) {
         var title = req.params.title;
         var imageId = req.params.imageId;
         if (req.isAuthenticated() == true) {
@@ -151,7 +151,7 @@ var upload = multer({
     dest: "./uploads"
 });
 
-router.post('/:userId', upload.array('photos', 200), function(req, res, next) {
+router.post('/', upload.array('photos', 200), function(req, res, next) {
     if (req.isAuthenticated() == true) {
         var gfs = Grid(connection.db);
         var ss = req.files;
@@ -164,7 +164,7 @@ router.post('/:userId', upload.array('photos', 200), function(req, res, next) {
             });
             fs.createReadStream("./uploads/" + filename).pipe(writestream);
             writestream.on('close', function(file) {
-                var id = req.params.userId;
+                var id = req.user._id.toString();
                 var tag = req.params.tag;
                 var image = new Image();
                 image.imageLargerPath = "aa/bb";
