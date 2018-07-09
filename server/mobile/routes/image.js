@@ -2,24 +2,51 @@ var express = require('express');
 var router = express.Router();
 var Image = require('../models/image');
 
-router.get('/:page', function(req, res, next) {
+router.get('/', function(req, res, next) {
     var perPage = 10,
-        page = Math.max(0, req.params.page);
+        page = Math.max(0, req.query.page);
+    var title = req.query.title;
+    var userId = req.query.userId;
+
     if (req.isAuthenticated() == true) {
-        Image.find({}).limit(perPage)
-            .skip(perPage * page)
-            .sort({
-                title: 'asc'
-            }).exec(function(err, images) {
-                console.log(images);
-                res.send(JSON.stringify(images));
-            });
+        if (title != null) {
+            Image.find({
+                    "title": title
+                }).limit(perPage)
+                .skip(perPage * page)
+                .sort({
+                    title: 'asc'
+                }).exec(function(err, images) {
+                    console.log(images);
+                    res.send(JSON.stringify(images));
+                });
+        } else if (userId != null) {
+            Image.find({
+                    "userId": id
+                }).limit(perPage)
+                .skip(perPage * page)
+                .sort({
+                    title: 'asc'
+                }).exec(function(err, images) {
+                    console.log(images);
+                    res.send(JSON.stringify(images));
+                });
+        } else {
+            Image.find({}).limit(perPage)
+                .skip(perPage * page)
+                .sort({
+                    title: 'asc'
+                }).exec(function(err, images) {
+                    console.log(images);
+                    res.send(JSON.stringify(images));
+                });
+        }
     } else {
         res.status(401);
     }
 })
 
-router.get('/getImageById/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     if (req.isAuthenticated() == true) {
         Image.find({
@@ -28,47 +55,6 @@ router.get('/getImageById/:id', function(req, res, next) {
             console.log(image);
             res.send(image);
         });
-    } else {
-        res.status(401);
-    }
-
-})
-
-router.get('/getImageByTitle/:title/:page', function(req, res, next) {
-    var title = req.params.title;
-    var perPage = 10,
-        page = Math.max(0, req.params.page);
-    if (req.isAuthenticated() == true) {
-        Image.find({
-                "title": title
-            }).limit(perPage)
-            .skip(perPage * page)
-            .sort({
-                title: 'asc'
-            }).exec(function(err, images) {
-                console.log(images);
-                res.send(JSON.stringify(images));
-            });
-    } else {
-        res.status(401);
-    }
-})
-
-router.get('/getImageByUserId/:userId/:page', function(req, res, next) {
-    var id = req.params.userId;
-    var perPage = 10,
-        page = Math.max(0, req.params.page);
-    if (req.isAuthenticated() == true) {
-        Image.find({
-                "userId": id
-            }).limit(perPage)
-            .skip(perPage * page)
-            .sort({
-                title: 'asc'
-            }).exec(function(err, images) {
-                console.log(images);
-                res.send(JSON.stringify(images));
-            });
     } else {
         res.status(401);
     }
@@ -112,7 +98,7 @@ connection.once('open', function() {
     });
 
     // Delete a file from MongoDB
-    router.get('/:userId/delete/:imageId', function(req, res) {
+    router.delete('/:userId/delete/:imageId', function(req, res) {
         var imageId = req.params.imageId;
         if (req.isAuthenticated() == true) {
             gfs.exist({

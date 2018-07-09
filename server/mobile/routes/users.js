@@ -4,65 +4,51 @@ var User = require('../models/user');
 var likedStore = require('../models/likedStore');
 var userStore = require('../models/userStore');
 
-router.get('/:page', function(req, res, next) {
+router.get('/', function(req, res, next) {
     var perPage = 10,
-        page = Math.max(0, req.params.page);
+        page = Math.max(0, req.query.page);
+    var name = req.query.name;
+    var email = req.query.email;
+
     if (req.isAuthenticated() == true) {
-        User.find({}).limit(perPage)
-            .skip(perPage * page)
-            .sort({
-                Name: 'asc'
-            }).exec(function(err, users) {
-                console.log(users);
-                res.send(JSON.stringify(users));
+        if (name != null) {
+            User.find({
+                    "Name": name
+                }).limit(perPage)
+                .skip(perPage * page)
+                .sort({
+                    Name: 'asc'
+                }).exec(function(err, users) {
+                    console.log(users);
+                    res.send(JSON.stringify(users));
+                });
+        } else if (email != null) {
+            User.find({
+                "email": email
+            }, function(err, user) {
+                console.log(user);
+                res.send(JSON.stringify(user));
             });
+        } else {
+            User.find({}).limit(perPage)
+                .skip(perPage * page)
+                .sort({
+                    Name: 'asc'
+                }).exec(function(err, users) {
+                    console.log(users);
+                    res.send(JSON.stringify(users));
+                });
+        }
     } else {
         res.status(401);
     }
-
 })
 
-router.get('/getUserById/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     if (req.isAuthenticated() == true) {
         User.find({
             "_id": id
-        }, function(err, user) {
-            console.log(user);
-            res.send(JSON.stringify(user));
-        });
-    } else {
-        res.status(401);
-    }
-
-})
-
-router.get('/getUserByName/:name/:page', function(req, res, next) {
-    var name = req.params.name;
-    var perPage = 10,
-        page = Math.max(0, req.params.page);
-    if (req.isAuthenticated() == true) {
-        User.find({
-                "Name": name
-            }).limit(perPage)
-            .skip(perPage * page)
-            .sort({
-                Name: 'asc'
-            }).exec(function(err, users) {
-                console.log(users);
-                res.send(JSON.stringify(users));
-            });
-    } else {
-        res.status(401);
-    }
-})
-
-
-router.get('/getUserByEmail/:email', function(req, res, next) {
-    var email = req.params.email;
-    if (req.isAuthenticated() == true) {
-        User.find({
-            "email": email
         }, function(err, user) {
             console.log(user);
             res.send(JSON.stringify(user));
