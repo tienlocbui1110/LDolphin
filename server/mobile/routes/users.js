@@ -4,143 +4,126 @@ var User = require('../models/user');
 var likedStore = require('../models/likedStore');
 var userStore = require('../models/userStore');
 
-router.get('/', function(req, res, next) {
-    User.find({}, function(err, users) {
-        var userMap = {};
+router.get('/:page', function(req, res, next) {
+    var perPage = 10,
+        page = Math.max(0, req.params.page);
+    if (req.isAuthenticated() == true) {
+        User.find({}).limit(perPage)
+            .skip(perPage * page)
+            .sort({
+                Name: 'asc'
+            }).exec(function(err, users) {
+                console.log(users);
+                res.send(JSON.stringify(users));
+            });
+    } else {
+        res.status(401);
+    }
 
-        users.forEach(function(user) {
-            userMap[user._id] = user;
-        });
-
-        console.log(users);
-        res.send(userMap);
-    });
 })
 
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.find({ "_id": id }, function(err, user) {
-        var userMap = {};
-
-        user.forEach(function(user) {
-            userMap[user._id] = user;
+    if (req.isAuthenticated() == true) {
+        User.find({
+            "_id": id
+        }, function(err, user) {
+            console.log(user);
+            res.send(JSON.stringify(user));
         });
+    } else {
+        res.status(401);
+    }
 
-        console.log(user);
-        res.send(userMap);
-    });
 })
 
-router.get('/getUserByName/:name', function(req, res, next) {
+router.get('/getUserByName/:name/:page', function(req, res, next) {
     var name = req.params.name;
-    User.find({ "Name": name }, function(err, users) {
-
-        var page = 1
-        var rowInPage = 10
-        if (req.param('p')) page = req.param('p')
-        var pageCount = Math.round(users.length / rowInPage + 0.5)
-        var pagination = {
-            page: page,
-            pageCount: pageCount
-        }
-        users = users.slice((pagination.page - 1) * rowInPage, pagination.page * rowInPage)
-
-        var userMap = {};
-
-        users.forEach(function(user) {
-            userMap[user._id] = user;
-        });
-
-        console.log(users);
-        res.send(userMap);
-    });
+    var perPage = 10,
+        page = Math.max(0, req.params.page);
+    if (req.isAuthenticated() == true) {
+        User.find({
+                "Name": name
+            }).limit(perPage)
+            .skip(perPage * page)
+            .sort({
+                Name: 'asc'
+            }).exec(function(err, users) {
+                console.log(users);
+                res.send(JSON.stringify(users));
+            });
+    } else {
+        res.status(401);
+    }
 })
 
 
 router.get('/getUserByEmail/:email', function(req, res, next) {
     var email = req.params.email;
-    User.find({ "email": email }, function(err, user) {
-        var userMap = {};
-
-        user.forEach(function(user) {
-            userMap[user._id] = user;
+    if (req.isAuthenticated() == true) {
+        User.find({
+            "email": email
+        }, function(err, user) {
+            console.log(user);
+            res.send(JSON.stringify(user));
         });
+    } else {
+        res.status(401);
+    }
 
-        console.log(user);
-        res.send(userMap);
-    });
 })
 
-router.post('/addUser', function(req, res, next) {
-    var user = req.body.user;
-    User.insertOne(user);
-    res.send('Add a new user')
-})
-
-router.get('/:id/imageStored', function(req, res, next) {
+router.get('/:id/imageStored/:page', function(req, res, next) {
     var id = req.params.id;
-    userStore.find({ userId: id }, function(err, images) {
-
-        var page = 1
-        var rowInPage = 10
-        if (req.param('p')) page = req.param('p')
-        var pageCount = Math.round(products.length / rowInPage + 0.5)
-        var pagination = {
-            page: page,
-            pageCount: pageCount
-        }
-        images = images.slice((pagination.page - 1) * rowInPage, pagination.page * rowInPage)
-
-        var imageMap = {};
-
-        images.forEach(function(image) {
-            imageMap[image._id] = image;
-        });
-
-        console.log(images);
-        res.send(imageMap);
-    });
+    var perPage = 10,
+        page = Math.max(0, req.params.page);
+    if (req.isAuthenticated() == true) {
+        userStore.find({
+                userId: id
+            }).limit(perPage)
+            .skip(perPage * page)
+            .exec(function(err, images) {
+                console.log(images);
+                res.send(JSON.stringify(images));
+            });
+    } else {
+        res.status(401);
+    }
 })
 
 router.post('/:id/imageStored/add', function(req, res, next) {
     var id = req.params.id;
-    var data = req.body.image;
+    var data = new userStore();
+    data = req.body.image;
     data.userId = id;
-    userStore.insertOne(data);
+    data.save();
     res.send('Add a new stored image')
 })
 
-router.get('/:id/imageLiked', function(req, res, next) {
+router.get('/:id/imageLiked/:page', function(req, res, next) {
     var id = req.params.id;
-
-    likedStore.find({ userId: id }, function(err, images) {
-
-        var page = 1
-        var rowInPage = 10
-        if (req.param('p')) page = req.param('p')
-        var pageCount = Math.round(products.length / rowInPage + 0.5)
-        var pagination = {
-            page: page,
-            pageCount: pageCount
-        }
-        images = images.slice((pagination.page - 1) * rowInPage, pagination.page * rowInPage)
-
-        var imageMap = {};
-
-        images.forEach(function(image) {
-            imageMap[image._id] = image;
-        });
-
-        console.log(images);
-        res.send(imageMap);
-    });
+    var perPage = 10,
+        page = Math.max(0, req.params.page);
+    if (req.isAuthenticated() == true) {
+        likedStore.find({
+                userId: id
+            }).limit(perPage)
+            .skip(perPage * page)
+            .exec(function(err, images) {
+                console.log(images);
+                res.send(JSON.stringify(images));
+            });
+    } else {
+        res.status(401);
+    }
 })
 
 router.post('/:id/imageLiked/add', function(req, res, next) {
     var id = req.params.id;
-    var data = req.body.image;
+    var data = new likedStore();
+    data = req.body.image;
     data.userId = id;
-    likedStore.insertOne(data);
+    data.save();
     res.send('Add a new liked image')
 })
 

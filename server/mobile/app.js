@@ -63,23 +63,25 @@ mongoose.connect('mongodb://localhost:27017/lDophin');
 //     failureRedirect: '/'
 // }));
 
-app.post('/signup', function (req, res) {
+app.post('/signup', function(req, res) {
     User.register(new User({
         email: req.body.email,
-        Name: req.body.name
-    }), req.body.password, function (err) {
+        Name: req.body.name,
+        CMND: req.body.CMND,
+        phoneNumber: req.body.phoneNumber
+    }), req.body.password, function(err) {
         if (err) {
             console.log(err);
             return res.send("failed");
         }
-        passport.authenticate("local")(req, res, function () {
+        passport.authenticate("local")(req, res, function() {
             console.log("Successful");
             res.redirect('secret');
         });
     });
 });
 
-app.get("/login", function (req, res) {
+app.get("/login", function(req, res) {
     if (req.isAuthenticated()) {
         res.redirect("secret");
     } else {
@@ -90,11 +92,11 @@ app.get("/login", function (req, res) {
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/secret",
     failureRedirect: "/login"
-}), function (req, res) {
+}), function(req, res) {
 
 });
 
-app.get("/secret", isLoggedIn, function (req, res) {
+app.get("/secret", isLoggedIn, function(req, res) {
     console.log("ID: " + req.user._id.toString());
     res.send("sescret");
 });
@@ -111,12 +113,12 @@ app.use('/users', usersRouter);
 app.use('/image', imageRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -128,7 +130,7 @@ app.use(function (err, req, res, next) {
 
 app.set('port', (process.env.PORT || 5000));
 
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), function() {
     console.log('Server is listening at port ' + app.get('port'));
 });
 
