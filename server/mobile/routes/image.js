@@ -19,7 +19,7 @@ router.get('/:page', function(req, res, next) {
     }
 })
 
-router.get('/:id', function(req, res, next) {
+router.get('/getImageById/:id', function(req, res, next) {
     var id = req.params.id;
     if (req.isAuthenticated() == true) {
         Image.find({
