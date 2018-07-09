@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
                 });
         } else if (userId != null) {
             Image.find({
-                    "userId": id
+                    "userId": userId
                 }).limit(perPage)
                 .skip(perPage * page)
                 .sort({

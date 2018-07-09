@@ -10,6 +10,9 @@ router.get('/', function(req, res, next) {
     var name = req.query.name;
     var email = req.query.email;
 
+    console.log(name);
+    console.log(email);
+
     if (req.isAuthenticated() == true) {
         if (name != null) {
             User.find({
