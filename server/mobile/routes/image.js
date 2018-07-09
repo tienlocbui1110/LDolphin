@@ -151,7 +151,7 @@ var upload = multer({
     dest: "./uploads"
 });
 
-router.post('/:userId/addImage', upload.array('photos', 200), function(req, res, next) {
+router.post('/:userId', upload.array('photos', 200), function(req, res, next) {
     if (req.isAuthenticated() == true) {
         var gfs = Grid(connection.db);
         var ss = req.files;
