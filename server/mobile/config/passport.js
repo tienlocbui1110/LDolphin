@@ -17,102 +17,91 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
+var createHash = function(password) {
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+}
+
 passport.use('local-signup', new LocalStrategy({
-    email: 'email',
-    password: 'password',
-    passReqToCallback: true
-}, function(req, email, password, done) {
-    req.checkBody('email', 'Invalid email login').notEmpty();
-    req.checkBody('password', 'Invalid password').notEmpty();
-    var errors = req.validationErrors();
-    if (errors) {
-        var messages = [];
-        errors.forEach(function(error) {
-            messages.push(error.msg);
-        });
-        console.log('fail')
-        return done(null, false, req.flash('error', messages));
-    }
-    var generateHash = function(password) {
-        return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-    };
-    User.findOne({
-            "email": email
-        }, {
-            raw: true
-        })
-        .then(user => {
-            if (user) {
-                console.log('fail')
-                return done(null, false, {
-                    message: 'User email is already in use.'
-                });
-            }
-            var userPassword = generateHash(password);
-            var data = {
-                "email": email,
-                "phoneNumber": req.body.phoneNumber,
-                "CMND": req.body.CMND,
-                "typeOfUser": 1,
-                "password": userPassword,
-                "Name": req.body.name,
-            };
-
-            User.insert(data).then(function(newUser, created) {
-                if (!newUser) {
-                    return done(null, false);
-                }
-                if (newUser) {
-                    console.log('success')
-                    return done(null, newUser);
-                }
-            });
-        });
-}));
-
-passport.use('local-signin', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
-        email: 'email',
-        password: 'password',
         passReqToCallback: true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) {
-        var isValidPassword = function(userpass, password) {
-            console.log(userpass, password);
-            console.log(bCrypt.compareSync(password, userpass));
-            return bCrypt.compareSync(password, userpass);
-        };
-        User.findOne({
-                "email": email
-            }, {
-                raw: true
-            })
-            .then(user => {
 
-                if (!user) {
-                    console.log('fail')
-                    return done(null, false, {
-                        message: 'User email does not exist'
+        findOrCreateUser = function() {
+            // find a user in Mongo with provided username
+            User.findOne({
+                'email': email
+            }, function(err, user) {
+                // In case of any error, return using the done method
+                if (err) {
+                    console.log('Error in SignUp: ' + err);
+                    return done(err);
+                }
+                // already exists
+                if (user) {
+                    console.log('User already exists with email: ' + email);
+                    return done(null, false, req.flash('message', 'User Already Exists'));
+                } else {
+                    // if there is no user with that email
+                    // create the user
+                    var newUser = new User();
+
+                    // set the user's local credentials
+                    newUser.email = email;
+                    newUser.password = createHash(password);
+                    newUser.typeOfUser = req.body.typeOfUser;
+                    newUser.phoneNumber = req.body.phoneNumber;
+                    newUser.CMND = req.body.CMND;
+                    newUser.Name = req.body.Name;
+
+                    // save the user
+                    newUser.save(function(err) {
+                        if (err) {
+                            console.log('Error in Saving user: ' + err);
+                            throw err;
+                        }
+                        console.log('User Registration succesful');
+                        return done(null, newUser);
                     });
                 }
-                if (!isValidPassword(user.password, password)) {
-                    console.log('fail')
-                    return done(null, false, {
-                        message: 'Incorrect password.'
-                    });
-
-                }
-                console.log('success')
-                var userinfo = user.get();
-                console.log(userinfo)
-                req.session.user = user;
-                return done(null, userinfo);
-            }).catch(function(err) {
-                console.log("Error:", err);
-                return done(null, false, {
-                    message: 'Something went wrong with your Signin'
-                });
             });
+        };
+        // Delay the execution of findOrCreateUser and execute the method
+        // in the next tick of the event loop
+        process.nextTick(findOrCreateUser);
+    }));
 
-    }
-));
+
+var isValidPassword = function(user, password) {
+    return bCrypt.compareSync(password, user.password);
+}
+
+passport.use('local-signin', new LocalStrategy({
+        passReqToCallback: true
+    },
+    function(req, email, password, done) {
+        // check in mongo if a user with username exists or not
+        User.findOne({
+                'email': email
+            },
+            function(err, user) {
+                // In case of any error, return using the done method
+                if (err)
+                    return done(err);
+                // Username does not exist, log error & redirect back
+                if (!user) {
+                    console.log('User Not Found with email ' + email);
+                    return done(null, false,
+                        req.flash('message', 'User Not found.'));
+                }
+                // User exists but wrong password, log the error 
+                if (!isValidPassword(user, password)) {
+                    console.log('Invalid Password');
+                    return done(null, false,
+                        req.flash('message', 'Invalid Password'));
+                }
+                // User and password both match, return user from 
+                // done method which will be treated like success
+                return done(null, user);
+            }
+        );
+    }));
