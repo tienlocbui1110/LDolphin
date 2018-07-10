@@ -44,6 +44,7 @@ router.get('/', function(req, res, next) {
         }
     } else {
         res.status(401);
+        res.send({});
     }
 })
 
@@ -58,6 +59,7 @@ router.get('/:id', function(req, res, next) {
         });
     } else {
         res.status(401);
+        res.send({});
     }
 
 })
@@ -77,6 +79,7 @@ router.get('/:id/imageStored/', function(req, res, next) {
             });
     } else {
         res.status(401);
+        res.send({});
     }
 })
 
@@ -104,6 +107,7 @@ router.get('/:id/imageLiked', function(req, res, next) {
             });
     } else {
         res.status(401);
+        res.send({});
     }
 })
 

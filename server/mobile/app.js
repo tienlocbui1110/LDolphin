@@ -78,6 +78,7 @@ app.get("/login", function(req, res) {
 
 app.get("/fail", function(req, res) {
     res.status(401);
+    res.send({});
 })
 
 app.post("/login", passport.authenticate("local", {
@@ -89,6 +90,7 @@ app.post("/login", passport.authenticate("local", {
 
 app.get("/secret", isLoggedIn, function(req, res) {
     res.status(200);
+    res.send({});
 });
 
 function isLoggedIn(req, res, next) {

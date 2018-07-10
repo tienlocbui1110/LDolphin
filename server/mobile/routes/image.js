@@ -43,6 +43,7 @@ router.get('/', function(req, res, next) {
         }
     } else {
         res.status(401);
+        res.send({});
     }
 })
 
@@ -57,6 +58,7 @@ router.get('/:id', function(req, res, next) {
         });
     } else {
         res.status(401);
+        res.send({});
     }
 })
 
@@ -93,6 +95,7 @@ connection.once('open', function() {
             });
         } else {
             res.status(401);
+            res.send({});
         }
 
     });
@@ -117,6 +120,7 @@ connection.once('open', function() {
             });
         } else {
             res.status(401);
+            res.send({});
         }
 
     });
@@ -142,6 +146,7 @@ connection.once('open', function() {
             });
         } else {
             res.status(401);
+            res.send({});
         }
 
     });
@@ -185,6 +190,7 @@ router.post('/', upload.array('photos', 200), function(req, res, next) {
         }
     } else {
         res.status(401);
+        res.send({});
     }
 
 });
@@ -202,6 +208,7 @@ router.get('/:id/updateImage/liked', function(req, res, next) {
         res.send("thêm dc r");
     } else {
         res.status(401);
+        res.send({});
     }
 
 })
