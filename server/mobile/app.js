@@ -60,19 +60,23 @@ app.post('/signup', function(req, res) {
         phoneNumber: req.body.phoneNumber
     }), req.body.password, function(err) {
         if (err) {
-            return res.status(401);
+            res.status(401);
+            res.send({});
         }
         passport.authenticate("local")(req, res, function() {
-            res.redirect('secret');
+            res.status(200);
+            res.send({});
         });
     });
 });
 
 app.get("/login", function(req, res) {
     if (req.isAuthenticated()) {
-        res.redirect("secret");
+        res.status(200);
+        res.send({});
     } else {
-        res.render("login");
+       res.status(401);
+       res.send({});
     }
 });
 
@@ -81,11 +85,9 @@ app.get("/fail", function(req, res) {
     res.send({});
 })
 
-app.post("/login", passport.authenticate("local", {
-    successRedirect: "/secret",
-    failureRedirect: "/fail"
-}), function(req, res) {
-
+app.post("/login", passport.authenticate("local"),function(req,res){
+    res.status(200);
+    res.send({});
 });
 
 app.get("/secret", isLoggedIn, function(req, res) {
