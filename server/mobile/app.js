@@ -52,17 +52,6 @@ passport.deserializeUser(User.deserializeUser());
 mongoose.connect('mongodb://localhost:27017/lDophin');
 
 
-// app.post('/signup', passport.authenticate('local-signup', {
-//     successRedirect: '/userPage',
-//     failureRedirect: '/',
-//     failureFlash: true
-// }));
-
-// app.post('/signin', passport.authenticate('local-signin', {
-//     successRedirect: '/userPage',
-//     failureRedirect: '/'
-// }));
-
 app.post('/signup', function(req, res) {
     User.register(new User({
         email: req.body.email,
@@ -71,11 +60,9 @@ app.post('/signup', function(req, res) {
         phoneNumber: req.body.phoneNumber
     }), req.body.password, function(err) {
         if (err) {
-            console.log(err);
-            return res.send("failed");
+            return res.status(401);
         }
         passport.authenticate("local")(req, res, function() {
-            console.log("Successful");
             res.redirect('secret');
         });
     });
@@ -89,9 +76,13 @@ app.get("/login", function(req, res) {
     }
 });
 
+app.get("/fail", function(req, res) {
+    res.status(401);
+})
+
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/secret",
-    failureRedirect: "/login"
+    failureRedirect: "/fail"
 }), function(req, res) {
 
 });
@@ -104,7 +95,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/');
+    res.redirect('/fail');
 }
 
 app.use('/', indexRouter);
