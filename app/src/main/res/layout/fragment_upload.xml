@@ -25,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:backgroundTint="@color/colorPrimary"
             android:padding="10dp"
-            android:text="Chọn ảnh từ thư viện"
+            android:text="@string/choose_image"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="15sp" />
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_picker_image"
             android:layout_centerInParent="true"
-            android:text="Hoặc" />
+            android:text="@string/or" />
 
         <Button
             android:id="@+id/btn_take_pic"
@@ -48,7 +48,7 @@
             android:layout_centerInParent="true"
             android:backgroundTint="@color/colorPrimary"
             android:padding="10dp"
-            android:text="Chụp ảnh"
+            android:text="@string/take_image"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="15sp" />

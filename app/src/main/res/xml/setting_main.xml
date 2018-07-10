@@ -1,0 +1,10 @@
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Setting">
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/key_is_modern_layout"
+        android:selectAllOnFocus="true"
+        android:title="@string/title_modern_layout" />
+</PreferenceScreen>

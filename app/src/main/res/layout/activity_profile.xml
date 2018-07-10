@@ -8,6 +8,12 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+    <uk.co.senab.photoview.PhotoView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,11 +24,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <include layout="@layout/default_toolbar" />
         </android.support.design.widget.AppBarLayout>
+
         <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
             android:id="@+id/recycler_profile"
-            android:layout_height="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.CoordinatorLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_waiting_for_loading"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/tv_cant_load_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/cannot_loading_data" />
 </RelativeLayout>

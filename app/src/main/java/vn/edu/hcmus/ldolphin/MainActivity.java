@@ -1,6 +1,7 @@
 package vn.edu.hcmus.ldolphin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private AHBottomNavigation bottomNavigation;
     private AppBarLayout appBarLayout;
     private EditText edtSearch;
+    private ImageButton ibtnSearch;
     private View root;
 
     @Override
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         edtSearch = findViewById(R.id.text_input_search);
         root = findViewById(R.id.main_activity_root);
+        ibtnSearch = findViewById(R.id.image_button_search);
 
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -59,6 +64,19 @@ public class MainActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null)
                     imm.hideSoftInputFromWindow(root.getWindowToken(), 0);
+            }
+        });
+
+        ibtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (edtSearch.getText().toString().equals("")) {
+                    Toast.makeText(MainActivity.this, "Search field is null.", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(MainActivity.this, SearchingActivity.class);
+                    intent.putExtra("key", edtSearch.getText().toString());
+                    startActivity(intent);
+                }
             }
         });
 

@@ -50,6 +50,7 @@ router.get('/addUser', function(req, res, next) {
     var user = req.body.user;
     User.insertOne(user);
     console.log(user);
+    console.log("hihihehe");
 })
 
 router.get('/:id/imageStored', function(req, res, next) {

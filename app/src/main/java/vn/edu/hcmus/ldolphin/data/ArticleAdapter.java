@@ -3,27 +3,21 @@ package vn.edu.hcmus.ldolphin.data;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.edu.hcmus.ldolphin.MainActivity;
 import vn.edu.hcmus.ldolphin.PhotoFullscreen;
 import vn.edu.hcmus.ldolphin.R;
 
@@ -33,15 +27,17 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int VIEW_TYPE_PROGRESS = 2;
     private List<Article> mArticleList;
     private LayoutInflater mLayoutInflater;
-    private Activity mContext;
+    private Activity activity;
+    private Context mContext;
 
     private MyViewHolder myViewHolder;
     private ViewHolderProgressBar viewHolderProgressBar;
 
-    public ArticleAdapter(Context context, List<Article> articleList) {
+    public ArticleAdapter(Activity activity, List<Article> articleList) {
         this.mArticleList = articleList;
-        mLayoutInflater = LayoutInflater.from(context);
-        mContext = (Activity) context;
+        mLayoutInflater = LayoutInflater.from(activity);
+        this.activity = activity;
+        mContext = (Context) activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -54,7 +50,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             name = itemView.findViewById(R.id.text_name);
             time = itemView.findViewById(R.id.text_time);
-            description = itemView.findViewById(R.id.text_description);
+            description = itemView.findViewById(R.id.text_title);
             img = itemView.findViewById(R.id.image_picture);
             avatar = itemView.findViewById(R.id.image_avatar);
             imgButtonMenu = itemView.findViewById(R.id.image_button_menu);
@@ -116,30 +112,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         mContext.startActivity(fullscreen);
                     }
                 });
-                // Set dropdown menu
-                myViewHolder.imgButtonMenu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        PopupMenu popup = new PopupMenu(mContext, myViewHolder.imgButtonMenu);
-                        popup.getMenuInflater().inflate(R.menu.article_menu, popup.getMenu());
-                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            public boolean onMenuItemClick(MenuItem item) {
-                                if (item.getTitle().toString().compareTo("Xóa") == 0) {
-                                    mArticleList.remove(position);
-                                    Toast.makeText(mContext, "removed", Toast.LENGTH_SHORT).show();
-                                } else if (item.getTitle().toString().compareTo("Ẩn") == 0) {
-                                    mArticleList.remove(position);
-                                    Toast.makeText(mContext, "hided", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(mContext, "reported to admin", Toast.LENGTH_SHORT).show();
-                                }
-                                notifyDataSetChanged();
-                                return true;
-                            }
-                        });
-                        popup.show();
-                    }
-                });
                 break;
             case VIEW_TYPE_PROGRESS:
                 viewHolderProgressBar = (ArticleAdapter.ViewHolderProgressBar) holder;
@@ -149,7 +121,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     public void run() {
                         try {
                             Thread.sleep(2000);
-                            mContext.runOnUiThread(new Runnable() {
+                            activity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     List<Article> tmp = new ArrayList<>();

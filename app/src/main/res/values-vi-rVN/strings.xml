@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_fragment_profile">Trang cá nhân</string>
+    <string name="menu_fragment_setting">Cài đặt ứng dụng</string>
+    <string name="menu_fragment_logout">Đăng xuất</string>
+    <string name="edittext_searching">Tìm kiếm…</string>
+    <string name="cannot_loading_data">Không thể tải dữ liệu</string>
+    <string name="title_activity_settings">Cài đặt</string>
+    <string name="title">Tiêu đề</string>
+    <string name="submit">Gửi</string>
+    <string name="login">Đăng nhập</string>
+    <string name="need_login">Bạn cần đăng nhập?</string>
+    <string name="need_register">Bạn cần đăng ký?</string>
+    <string name="retype_password">Nhập lại mật khẩu</string>
+    <string name="name">Tên</string>
+    <string name="phone">Điện thoại</string>
+    <string name="cmnd">CMND</string>
+    <string name="register">Đăng ký</string>
+    <string name="search_name">Tên</string>
+    <string name="search_title">Bài viết</string>
+    <string name="choose_image">Chọn ảnh từ thư viện</string>
+    <string name="or">Hoặc</string>
+    <string name="take_image">Chụp ảnh</string>
+    <string name="server_ip">Địa chỉ IP máy chủ</string>
+    <string name="password">mật khẩu</string>
+    <string name="title_modern_layout">Sử dụng giao diện hiện đại</string>
+</resources>
