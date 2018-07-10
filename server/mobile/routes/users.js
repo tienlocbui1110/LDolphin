@@ -5,96 +5,119 @@ var likedStore = require('../models/likedStore');
 var userStore = require('../models/userStore');
 
 router.get('/', function(req, res, next) {
-    User.find({}, function(err, users) {
-        var userMap = {};
+    var perPage = 10,
+        page = Math.max(0, req.query.page);
+    var name = req.query.name;
+    var email = req.query.email;
 
-        users.forEach(function(user) {
-            userMap[user._id] = user;
-        });
+    console.log(name);
+    console.log(email);
 
-        console.log(users);
-        res.send(userMap);
-    });
+    if (req.isAuthenticated() == true) {
+        if (name != null) {
+            User.find({
+                    "Name": name
+                }).limit(perPage)
+                .skip(perPage * page)
+                .sort({
+                    Name: 'asc'
+                }).exec(function(err, users) {
+                    console.log(users);
+                    res.send(JSON.stringify(users));
+                });
+        } else if (email != null) {
+            User.find({
+                "email": email
+            }, function(err, user) {
+                console.log(user);
+                res.send(JSON.stringify(user));
+            });
+        } else {
+            User.find({}).limit(perPage)
+                .skip(perPage * page)
+                .sort({
+                    Name: 'asc'
+                }).exec(function(err, users) {
+                    console.log(users);
+                    res.send(JSON.stringify(users));
+                });
+        }
+    } else {
+        res.status(401);
+        res.send({});
+    }
 })
 
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
-    User.find({ "_id": id }, function(err, user) {
-        var userMap = {};
-
-        user.forEach(function(user) {
-            userMap[user._id] = user;
+    if (req.isAuthenticated() == true) {
+        User.find({
+            "_id": id
+        }, function(err, user) {
+            console.log(user);
+            res.send(JSON.stringify(user));
         });
+    } else {
+        res.status(401);
+        res.send({});
+    }
 
-        console.log(user);
-        res.send(userMap);
-    });
-    console.log(user);
 })
 
-router.get('/:email', function(req, res, next) {
-    var email = req.params.email;
-    User.find({ "email": email }, function(err, user) {
-        var userMap = {};
-
-        user.forEach(function(user) {
-            userMap[user._id] = user;
-        });
-
-        console.log(user);
-        res.send(userMap);
-    });
-})
-
-router.get('/addUser', function(req, res, next) {
-    var user = req.body.user;
-    User.insertOne(user);
-    console.log(user);
-    console.log("hihihehe");
-})
-
-router.get('/:id/imageStored', function(req, res, next) {
+router.get('/:id/imageStored/', function(req, res, next) {
     var id = req.params.id;
-    userStore.find({ userId: id }, function(err, images) {
-        var imageMap = {};
-
-        images.forEach(function(image) {
-            imageMap[image._id] = image;
-        });
-
-        console.log(images);
-        res.send(imageMap);
-    });
+    var perPage = 10,
+        page = Math.max(0, req.query.page);
+    if (req.isAuthenticated() == true) {
+        userStore.find({
+                userId: id
+            }).limit(perPage)
+            .skip(perPage * page)
+            .exec(function(err, images) {
+                console.log(images);
+                res.send(JSON.stringify(images));
+            });
+    } else {
+        res.status(401);
+        res.send({});
+    }
 })
 
-router.get('/:id/imageStored/add', function(req, res, next) {
+router.post('/:id/imageStored/add', function(req, res, next) {
     var id = req.params.id;
-    var data = req.body.image;
+    var data = new userStore();
+    data = req.body.image;
     data.userId = id;
-    userStore.insertOne(data);
-    console.log(images);
+    data.save();
+    res.send('Add a new stored image')
 })
 
 router.get('/:id/imageLiked', function(req, res, next) {
     var id = req.params.id;
-    likedStore.find({ userId: id }, function(err, images) {
-        var imageMap = {};
-
-        images.forEach(function(image) {
-            imageMap[image._id] = image;
-        });
-
-        console.log(images);
-        res.send(imageMap);
-    });
+    var perPage = 10,
+        page = Math.max(0, req.query.page);
+    if (req.isAuthenticated() == true) {
+        likedStore.find({
+                userId: id
+            }).limit(perPage)
+            .skip(perPage * page)
+            .exec(function(err, images) {
+                console.log(images);
+                res.send(JSON.stringify(images));
+            });
+    } else {
+        res.status(401);
+        res.send({});
+    }
 })
 
-router.get('/:id/imageLiked/add', function(req, res, next) {
+router.post('/:id/imageLiked/add', function(req, res, next) {
     var id = req.params.id;
-    var data = req.body.image;
+    var data = new likedStore();
+    data = req.body.image;
     data.userId = id;
-    likedStore.insertOne(data);
-    console.log(images);
+    data.save();
+    res.send('Add a new liked image')
 })
 
 module.exports = router;
