@@ -97,8 +97,7 @@ app.post("/login", passport.authenticate("local", {
 });
 
 app.get("/secret", isLoggedIn, function(req, res) {
-    console.log("ID: " + req.user._id.toString());
-    res.send("sescret");
+    res.status(200);
 });
 
 function isLoggedIn(req, res, next) {
