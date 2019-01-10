@@ -1,49 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_activity_root"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:orientation="vertical">
 
-    <uk.co.senab.photoview.PhotoView
-        android:id="@+id/iv_background"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:layout_height="?android:attr/actionBarSize"
+        android:orientation="vertical">
 
-    <android.support.design.widget.CoordinatorLayout
+        <include layout="@layout/default_toolbar" />
+    </android.support.design.widget.AppBarLayout>
+
+    <fragment
+        android:id="@+id/profile_article_fragment"
+        android:name="vn.edu.hcmus.ldolphin.views.base.articleload.ArticleFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/default_toolbar" />
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_profile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    </android.support.design.widget.CoordinatorLayout>
-
-    <ProgressBar
-        android:id="@+id/pb_waiting_for_loading"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true" />
-
-    <TextView
-        android:id="@+id/tv_cant_load_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/cannot_loading_data" />
-</RelativeLayout>
+        android:layout_height="match_parent" />
+</LinearLayout>

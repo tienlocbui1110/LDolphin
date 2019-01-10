@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/darkBlue</item>
+        <item name="colorAccent">@color/redViolet</item>
     </style>
 
     <style name="ClickableMenuFragment">
@@ -24,29 +24,26 @@
         <item name="android:layout_marginLeft">50dp</item>
         <item name="android:layout_marginRight">50dp</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:backgroundTint">@color/colorMenuFragmentSetting</item>
+        <item name="android:backgroundTint">@color/cornflowerBlue</item>
         <item name="android:background">@drawable/layout_bg_corners</item>
     </style>
 
     <style name="Theme.MyFancyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/darkBlue</item>
+        <item name="colorAccent">@color/redViolet</item>
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="Theme.MyPreference" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/colorWhite</item>
-        <item name="android:colorBackground">@color/colorGrayLight</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/darkBlue</item>
+        <item name="colorAccent">@color/redViolet</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:colorBackground">@color/grayLight</item>
     </style>
-
-
-
 
 
 </resources>

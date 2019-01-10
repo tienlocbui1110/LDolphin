@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
@@ -31,13 +29,13 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/border_edittext"
             android:gravity="center_vertical"
-            android:hint="@string/title"
+            android:hint="@string/description"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="@android:color/white"
-            android:textColorHint="@color/colorGray"
+            android:textColorHint="@color/gray"
             android:textSize="20sp" />
 
         <ImageView

@@ -1,7 +1,7 @@
 package vn.edu.hcmus.ldolphin.data;
 
 public class User {
-    private String name, id, phone, cmnd, email;
+    private String name, id, email;
 
     public String getName() {
         return name;
@@ -11,12 +11,14 @@ public class User {
         return id;
     }
 
-    public User(String name, String id, String phone, String cmnd, String email) {
+    public String getEmail() {
+        return email;
+    }
 
+    public User(String email, String name, String id) {
         this.name = name;
         this.id = id;
-        this.phone = phone;
-        this.cmnd = cmnd;
         this.email = email;
+
     }
 }

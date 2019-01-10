@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="vn.edu.hcmus.ldolphin">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -10,7 +11,7 @@
         android:name="android.hardware.camera"
         android:required="true" />
     <application
-        android:name=".MyApplication"
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
@@ -18,27 +19,27 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".views.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PhotoFullscreen" />
+        <activity android:name=".views.fullscreen.PhotoFullscreen" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".views.profile.ProfileActivity"
             android:label="Trang cá nhân" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".views.login.LoginActivity" />
+        <activity android:name=".views.register.RegisterActivity" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".views.setting.SettingActivity"
             android:label="Setting"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".views.main.MainActivity"
             android:theme="@style/Theme.MyPreference" />
-        <activity android:name=".ImageUpload" />
-        <activity android:name=".SearchingActivity" />
+        <activity android:name=".views.upload.ImageUpload" />
+        <activity android:name=".views.searching.SearchingActivity" />
     </application>
 
 </manifest>

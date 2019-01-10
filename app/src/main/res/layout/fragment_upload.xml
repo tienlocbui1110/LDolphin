@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewPagerFragment.UploadFragment">
+    tools:context=".views.main.upload.UploadFragment">
 
     <uk.co.senab.photoview.PhotoView
         android:id="@+id/iv_background"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/blue"
             android:padding="10dp"
             android:text="@string/choose_image"
             android:textAllCaps="false"
@@ -46,7 +46,7 @@
 
             android:layout_below="@id/tv_or"
             android:layout_centerInParent="true"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/blue"
             android:padding="10dp"
             android:text="@string/take_image"
             android:textAllCaps="false"

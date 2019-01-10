@@ -34,7 +34,7 @@
             android:layout_toEndOf="@id/image_button_home"
             android:layout_toStartOf="@id/image_button_search"
             android:background="@drawable/layout_bg_corners"
-            android:backgroundTint="@color/colorWhite"
+            android:backgroundTint="@android:color/white"
             android:hint="@string/edittext_searching"
             android:imeOptions="actionDone"
             android:inputType="text"

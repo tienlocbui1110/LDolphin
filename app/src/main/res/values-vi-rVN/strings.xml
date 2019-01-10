@@ -6,7 +6,7 @@
     <string name="edittext_searching">Tìm kiếm…</string>
     <string name="cannot_loading_data">Không thể tải dữ liệu</string>
     <string name="title_activity_settings">Cài đặt</string>
-    <string name="title">Tiêu đề</string>
+    <string name="description">Tiêu đề</string>
     <string name="submit">Gửi</string>
     <string name="login">Đăng nhập</string>
     <string name="need_login">Bạn cần đăng nhập?</string>
