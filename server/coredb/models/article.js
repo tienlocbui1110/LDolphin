@@ -6,10 +6,13 @@ var schema = new Schema({
         type: String,
         required: true
     },
-    userId: {
-        type: Number,
-        required: true
+    description: {
+        type: String
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
-module.exports = mongoose.model('UserStore', schema);
+module.exports = mongoose.model('Article', schema);
